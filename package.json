@@ -21,6 +21,7 @@
     "express": "4.17.1",
     "file-loader": "6.0.0",
     "helmet": "3.22.0",
+    "lodash": "^4.17.21",
     "mongodb": "3.5.5",
     "mongoose": "5.9.7",
     "react": "16.13.1",
