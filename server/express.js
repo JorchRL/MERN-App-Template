@@ -8,6 +8,7 @@ import helmet from "helmet";
 
 import Template from "../template";
 import userRoutes from "./routes/user.routes";
+import authRoutes from "./routes/auth.routes";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 
 //// API ROUTES ////
 app.use("/", userRoutes);
+app.use("/", authRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send(Template());
