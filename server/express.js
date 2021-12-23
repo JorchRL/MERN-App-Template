@@ -43,5 +43,16 @@ app.get("/", (req, res) => {
 //
 ////////////////////
 
+/// JWT Error handler
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    return res.status(401).json({ error: `${err.name}: ${err.message}` });
+  } else {
+    return res.status(400).json({ error: `${err.name}: ${err.message}` });
+
+    console.log(err);
+  }
+});
+
 // Export the app
 export default app;
