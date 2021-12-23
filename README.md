@@ -4,6 +4,16 @@ This template includes a basic user model for MongoDB and REST endpoints for CRU
 
 ---
 
+### Scripts
+
+`dev` : run nodemon to watch for changes (see nodemon.json)
+
+`build`: webpack build with production mode config
+
+`start`: start the server in production mode
+
+---
+
 ### User Model:
 
 | Field    | Type    | Description                                          | Required | Unique |
