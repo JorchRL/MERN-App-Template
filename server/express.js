@@ -6,6 +6,8 @@ import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
 
+import Template from "../template";
+
 const app = express();
 
 // Parse body of an incomming request. This makes the req.body object
@@ -30,8 +32,10 @@ app.use(helmet());
 app.use(cors());
 
 //// API ROUTES ////
-//
-// TO DO
+
+app.get("/", (req, res) => {
+  res.status(200).send(Template());
+});
 //
 ////////////////////
 
