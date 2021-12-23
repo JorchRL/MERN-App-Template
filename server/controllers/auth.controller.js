@@ -19,7 +19,6 @@ const signin = async (req, res) => {
 
     // If we reach this point we have succesfully authenticated the user. 
     // Next we want to generate a JWT and a cookie containing it
-
     const token = jwt.sign({_id = user._id}, config.jwtSecret);
     res.cookie('t', token, {expire: new Date() + 9999})
 
@@ -45,12 +44,35 @@ const signout = (req, res) => {
   })
 };
 
-// helpers
-const requireSignin = undefined; //temp
+// Authorization middleware
 
-const hasAuthorization = (req, res) => {};
+// Routes that require authentication use this
+const requireSignin = expressJwt({
+  // Check if JWT is valid, if it is, attach the auth, which contains the 
+  // authenticated user _id, to the request.
+  // express-jwt will throw an "Unauthorized Error" when a token cannot be validated
+  secret: config.jwtSecret,
+  userProperty: auth,
+});
+
+// Routes that require authorization use this
+const hasAuthorization = (req, res,next) => {
+  // Check whether the request passed through userById() and requireSignin()
+  // if so, check that both _id's are the same. If so, the user making the request
+  // is authorized
+  const authorized = req.profile && req.auth && req.profile._id === req.auth._id
+
+  if (!authorized) {
+    res.status(403).json({error: "User is not authorized!"})
+  }
+
+  // Continue with next middleware
+  next()
+};
 
 export default {
   signin,
   signout,
+  requireSignin,
+  hasAuthorization
 };
