@@ -17,10 +17,10 @@ const signin = async (req, res) => {
         .json({ error: "Email and password do not match" });
     }
 
-    // If we reach this point we have succesfully authenticated the user. 
+    // If we reach this point we have succesfully authenticated the user.
     // Next we want to generate a JWT and a cookie containing it
-    const token = jwt.sign({_id = user._id}, config.jwtSecret);
-    res.cookie('t', token, {expire: new Date() + 9999})
+    const token = jwt.sign({ _id: user._id }, config.jwtSecret);
+    res.cookie("t", token, { expire: new Date() + 9999 });
 
     // Finally send both the token and the user as json
     return res.json({
@@ -28,51 +28,51 @@ const signin = async (req, res) => {
       user: {
         _id: user._id,
         name: user.name,
-        email: user.email
-      }
-    })
-
+        email: user.email,
+      },
+    });
   } catch (error) {
     return res.status(401).json({ error: "Could not sign in!" });
   }
 };
 
 const signout = (req, res) => {
-  res.clearCookie("t")
+  res.clearCookie("t");
   return res.status(200).json({
-    message: "Successfully signed out"
-  })
+    message: "Successfully signed out",
+  });
 };
 
 // Authorization middleware
 
 // Routes that require authentication use this
 const requireSignin = expressJwt({
-  // Check if JWT is valid, if it is, attach the auth, which contains the 
+  // Check if JWT is valid, if it is, attach the auth, which contains the
   // authenticated user _id, to the request.
   // express-jwt will throw an "Unauthorized Error" when a token cannot be validated
   secret: config.jwtSecret,
-  userProperty: auth,
+  userProperty: "auth",
 });
 
 // Routes that require authorization use this
-const hasAuthorization = (req, res,next) => {
+const hasAuthorization = (req, res, next) => {
   // Check whether the request passed through userById() and requireSignin()
   // if so, check that both _id's are the same. If so, the user making the request
   // is authorized
-  const authorized = req.profile && req.auth && req.profile._id === req.auth._id
+  const authorized =
+    req.profile && req.auth && req.profile._id === req.auth._id;
 
   if (!authorized) {
-    res.status(403).json({error: "User is not authorized!"})
+    res.status(403).json({ error: "User is not authorized!" });
   }
 
   // Continue with next middleware
-  next()
+  next();
 };
 
 export default {
   signin,
   signout,
   requireSignin,
-  hasAuthorization
+  hasAuthorization,
 };

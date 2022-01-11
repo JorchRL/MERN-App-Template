@@ -41,7 +41,7 @@ app.use(cors());
 
 //// API ROUTES ////
 app.use("/", userRoutes);
-app.use("/", authRouter);
+app.use("/", authRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send(Template());

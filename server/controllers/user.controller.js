@@ -54,7 +54,7 @@ const update = async (req, res) => {
       .json({ error: errorHandler.getErrorMessage(error) });
   }
 };
-const remove = (req, res, next) => {
+const remove = async (req, res, next) => {
   try {
     const user = req.profile;
     // user is the result of User.findById(), so we can call remove() from
