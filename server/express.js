@@ -10,7 +10,13 @@ import Template from "../template";
 import userRoutes from "./routes/user.routes";
 import authRoutes from "./routes/auth.routes";
 
+import devBundle from "./devBundle";
+import path from "path";
+const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
+devBundle.compile(app); // For development mode; comment for production
+
+app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 
 // Parse body of an incomming request. This makes the req.body object
 // available. Particularly, JSON formatted bodies can be accesses as
