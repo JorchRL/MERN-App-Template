@@ -16,8 +16,6 @@ const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 devBundle.compile(app); // For development mode; comment for production
 
-app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
-
 // Parse body of an incomming request. This makes the req.body object
 // available. Particularly, JSON formatted bodies can be accesses as
 // a javascript object (eg. req.body.<propertyName>)
@@ -39,6 +37,8 @@ app.use(helmet());
 // Enable CORS
 app.use(cors());
 
+/// SERVE STATIC FRONTEND REACT SCRIPT
+app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 //// API ROUTES ////
 app.use("/", userRoutes);
 app.use("/", authRoutes);
