@@ -2,9 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import unicornBike from "../assets/images/unicornbike.jpg";
-import { mergeClasses } from "@material-ui/styles";
 
 const Home = () => {
   const classes = useStyles();
@@ -13,6 +13,7 @@ const Home = () => {
       <Typography variant='h6' className={classes.title}>
         Homepage
       </Typography>
+
       <CardMedia
         className={classes.media}
         image={unicornBike}
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 600,
     margin: "auto",
     marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
   },
   title: {
     padding: `${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(
