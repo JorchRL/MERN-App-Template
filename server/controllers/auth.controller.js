@@ -1,10 +1,12 @@
-import User from "./user.controller";
+import User from "../models/user.model";
 import config from "../../config/config";
 import jwt from "jsonwebtoken";
 import expressJwt from "express-jwt";
 
 // auth/
 const signin = async (req, res) => {
+  // console.log("req email: ", req.body.email);
+  // console.log("req password: ", req.body.password);
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -32,6 +34,8 @@ const signin = async (req, res) => {
       },
     });
   } catch (error) {
+    // console.log("error name: ", error.name);
+    // console.log("error during sign in:", error.message);
     return res.status(401).json({ error: "Could not sign in!" });
   }
 };
@@ -59,11 +63,15 @@ const hasAuthorization = (req, res, next) => {
   // Check whether the request passed through userById() and requireSignin()
   // if so, check that both _id's are the same. If so, the user making the request
   // is authorized
+
+  // console.log("profile: ", req.profile);
+  // console.log("auth: ", req.auth);
+
   const authorized =
-    req.profile && req.auth && req.profile._id === req.auth._id;
+    req.profile && req.auth && req.profile._id.toString() === req.auth._id;
 
   if (!authorized) {
-    res.status(403).json({ error: "User is not authorized!" });
+    return res.status(403).json({ error: "User is not authorized!" });
   }
 
   // Continue with next middleware

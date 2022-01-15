@@ -5,16 +5,21 @@ import extend from "lodash/extend";
 
 // api/user
 const create = async (req, res) => {
+  // console.log(req.body);
   const user = new User(req.body);
+  // console.log(user);
   try {
     await user.save();
-    return res.status(200).json({ message: "Succesfully signed up!" });
+    return res
+      .status(200)
+      .json({ message: "Succesfully signed up a new User!" });
   } catch (error) {
     return res
       .status(400)
       .json({ error: errorHandler.getErrorMessage(error) });
   }
 };
+
 const list = async (req, res) => {
   try {
     const users = await User.find().select("name email updated created");
@@ -59,7 +64,6 @@ const remove = async (req, res, next) => {
     const user = req.profile;
     // user is the result of User.findById(), so we can call remove() from
     // mongoose Query
-
     // TODO: replace remove() with deleteOne() as remove() is deprecated
     const deletedUser = await user.remove();
     deletedUser.hashed_password = undefined;
