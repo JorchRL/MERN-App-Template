@@ -1,4 +1,5 @@
 const create = async (user) => {
+  // console.log(user);
   try {
     let response = await fetch("/api/users/", {
       method: "POST",
@@ -24,6 +25,7 @@ const list = async (signal) => {
 
     return await response.json();
   } catch (error) {
+    console.log("We have an error :(");
     console.log(error);
   }
 };
@@ -78,11 +80,11 @@ const update = async (params, credentials, user) => {
   }
 };
 
-const remove = (params, credentials) => {
+const remove = async (params, credentials) => {
   try {
-    let response = fetch("/api/users" + params.userId, {
+    let response = await fetch("/api/users/" + params.userId, {
       method: "DELETE",
-      header: {
+      headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: "Bearer " + credentials.t,
