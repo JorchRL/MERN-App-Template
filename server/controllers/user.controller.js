@@ -44,11 +44,13 @@ const read = (req, res) => {
 };
 
 const update = async (req, res) => {
+  // console.log("Upate profile: ", req.profile);
+  // console.log("Request body: ", req.body);
   try {
-    const user = req.profile;
+    let user = req.profile;
     user = extend(user, req.body);
 
-    user.upated = Date.now();
+    user.updated = Date.now();
     await user.save();
     user.hashed_password = undefined;
     user.salt = undefined;
