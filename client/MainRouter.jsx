@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes as Switch } from "react-router";
+import PrivateRoute from "./auth/PrivateRoute.jsx";
 
 import Menu from "./core/Menu.jsx";
 import Home from "./core/Home.jsx";
@@ -7,6 +8,7 @@ import Users from "./user/Users.jsx";
 import Signup from "./user/Signup.jsx";
 import Signin from "./auth/Signin.jsx";
 import Profile from "./user/Profile.jsx";
+import EditProfile from "./user/EditProfile.jsx";
 
 const MainRouter = () => {
   return (
@@ -22,6 +24,15 @@ const MainRouter = () => {
         <Route path='/user'>
           <Route path=':userId' element={<Profile />} />
         </Route>
+        {/* <PrivateRoute path='/user/edit/:userId' component={<EditProfile />} /> */}
+        <Route
+          path='/user/edit/:userId'
+          element={
+            <PrivateRoute redirectTo='/signin'>
+              <EditProfile />
+            </PrivateRoute>
+          }
+        />
       </Switch>
     </div>
   );
