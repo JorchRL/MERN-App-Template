@@ -1,0 +1,38 @@
+//// Public Routes
+
+// GET all users
+GET http://localhost:3000/api/users HTTP/1.1
+
+####
+
+// POST Create a new user
+POST http://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "patricia",
+  "email": "patiti@katitios.art",
+  "password": "ilovevaka"
+}
+
+####
+
+//// Authorization Routes
+
+// GET user by Id
+GET http://localhost:3000/api/users/1 HTTP/1.1
+Content-Type: application/json
+
+####
+// PUT Update user by Id
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: bearer 
+
+{
+  "name": "PATI"
+}
+
+
+// DELETE user by Id
+DELETE http://localhost:3000/api/users/1
