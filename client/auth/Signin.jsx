@@ -58,7 +58,7 @@ const Signin = (props) => {
   }
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardContent>
         <Typography variant='h6' className={classes.title}>
           Sign In
