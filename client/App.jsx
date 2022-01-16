@@ -7,6 +7,13 @@ import { hot } from "react-hot-loader";
 import MainRouter from "./MainRouter.jsx";
 
 const App = () => {
+  React.useEffect(() => {
+    const jssStyles = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
