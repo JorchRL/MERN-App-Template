@@ -22,6 +22,12 @@ const config = {
         use: ["babel-loader"],
       },
       {
+        // This is needed in the server for server-side rendering to work with jsx files
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: ["babel-loader"],
+      },
+      {
         test: /\.(ttf|eot|svg|jpg|png)(\?[\s\S]+)?$/,
         use: "file-loader",
       },
